@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>
         Coffee + Software with Josh Long
     </title>
@@ -31,10 +30,14 @@
 
 <script id="template" type="x-tmpl-mustache">
 {{#videos}}
-<b>{{videoId}}</b>
+
+    <h2>
+        {{title}}
+    </h2>
 
 
-
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" title="YouTube video player"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 
