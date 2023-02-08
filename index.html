@@ -20,7 +20,7 @@
 
     <style>
         .video {
-            padding: 1em ;
+            padding: 1em;
             border-top: 1px solid black;
             margin-top: 2em;
         }
@@ -56,6 +56,7 @@
 
 <script src="https://unpkg.com/mustache@latest"></script>
 <script>
+    window.videos = {api: 'http://localhost:8080 '}
     window.trackingPermitted = window.trackingPermitted || false
     console.log('tracking=false')
     let videos = [];
@@ -71,11 +72,14 @@
 
     window.addEventListener('load', function () {
         console.log('fetching videos!')
-        window.fetch('http://localhost:8080/videos')
+        window.fetch(window.videos.api + '/videos')
             .then((response) => response.json())
             .then((data) => {
-                console.log('called the API!')
                 videos = data
+                // normalize the dates from utc strings to javascript date objects
+                for (let i = 0; i < videos.length; i++) {
+                    videos [i].publishedAt = new Date(Date.parse(videos [i].publishedAt))
+                }
                 renderVideos()
             });
     });
@@ -87,6 +91,9 @@
     window.trackingPermitted  = true
     console.log('tracking permitted = true' )
     renderVideos()
+
+
+
 
 
 </script>
@@ -107,6 +114,9 @@
 
 </div>
 {{/videos}}
+
+
+
 
 </script>
 
