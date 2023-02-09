@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>
         Coffee + Software with Josh Long
     </title>
@@ -13,7 +13,6 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://coffeesoftware.com">
     <meta property="og:description" content="You've got plenty of things you could be watching. Why this?">
-
     <style>
 
         @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
@@ -60,7 +59,6 @@
         }
 
         .content {
-
             grid-area: content;
             z-index: 10;
         }
@@ -69,20 +67,37 @@
             display: grid;
         }
 
+        .video-link {
+            display: block;
+            text-transform: uppercase;
+            font-size: larger;
+            width: 25px;
+            background-repeat: no-repeat;
+            height: 25px;
+            background-image: url("images/play-button.png");
+            font-weight: bold;
+        }
+
         @media all and (min-width: 800px) {
             .cloud-image {
                 position: relative;
                 left: -278px;
-                width: 378px ;
+                width: 378px;
             }
 
             .logo-image {
                 margin-left: 1em;
             }
+
             .content {
                 position: relative;
                 top: -200px;
             }
+
+            .video-link {
+                display: none;
+            }
+
             .page {
                 grid-template-areas:
                                 " header header  header-image "
@@ -92,6 +107,9 @@
         }
 
         @media all  and (max-width: 800px ) {
+            .watch {
+                display: none;
+            }
 
             .content {
                 margin-left: 1em;
@@ -116,8 +134,9 @@
         }
 
         .page {
-            margin-top: 1em ;
+            margin-top: 1em;
         }
+
         body {
             padding: 0;
             margin: 0;
@@ -185,11 +204,6 @@
     window.trackingPermitted  = true;
     renderVideos();
 
-
-
-
-
-
 </script>
 <div class="page">
     <div class="logo-image"></div>
@@ -207,12 +221,17 @@
         <div class = "description">{{ description }}</div>
     </div>
     {{#trackingPermitted }}
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" title="YouTube video player"
-            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <div class="watch">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/{{videoId}}" title="YouTube video player"
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <a href="https://www.youtube.com/embed/{{videoId}}" class="video-link">
+        </a>
     {{/trackingPermitted }}
 
 </div>
 {{/videos}}
+
 
 
 
