@@ -24,6 +24,15 @@
             font-size: larger;
         }
 
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .title {
+            font-size: larger;
+        }
         .logo-image {
             background-image: url("images/logo.png");
             background-repeat: no-repeat;
@@ -112,6 +121,7 @@
             }
 
             .logo-image {
+                padding-top: 1em ;
                 background-position: center;
             }
 
@@ -126,22 +136,18 @@
 
 
             .page {
-
+                grid-template-columns:   5%  90%  5% ;
                 grid-template-areas:
-                                "   header   "
-                                "  header-image  "
-                                "   content ";
+                                "  . header .   "
+                                " .  header-image  .  "
+                                "  . content . ";
             }
         }
 
         .page {
-            margin-top: 1em;
+
         }
 
-        body {
-            padding: 0;
-            margin: 0;
-        }
     </style>
     <script src="https://unpkg.com/mustache@latest"></script>
     <script>
@@ -213,9 +219,9 @@
 <script id="template" type="x-tmpl-mustache">
 {{#videos}}
 <div class="video">
-    <h2>
+    <div class="title">
         {{title}}
-    </h2>
+    </div>
     <div class = "details">
         <div class = "published">{{ publishedAtString }}</div>
         <div class = "description">{{ description }}</div>
@@ -231,8 +237,6 @@
 
 </div>
 {{/videos}}
-
-
 </script>
 
 </body>
