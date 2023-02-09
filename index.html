@@ -20,8 +20,10 @@
 
         :root {
             --gutter-width: 100px;
+            --small-screen-width: 800px;
             font-family: 'Abel', sans-serif;
-            font-size: larger;         padding: 0;
+            font-size: larger;
+            padding: 0;
             margin: 0;
         }
 
@@ -30,8 +32,7 @@
             background-image: url("images/logo.png");
             background-repeat: no-repeat;
             grid-area: header;
-            /*background-size: 20%;*/
-
+            height: 100px;
             margin-left: 1em;
             margin-top: 1em;
         }
@@ -52,31 +53,56 @@
         }
 
         .header-image {
-            grid-area: header-image;
             height: 338px;
             width: 378px;
-            position: relative;
-            left: -278px;
+
+            grid-area: header-image;
             background-image: url("images/exported-yt.png");
             background-repeat: no-repeat;
             z-index: -1;
         }
 
         .content {
-            top: -200px;
-            position: relative;
+
             grid-area: content;
             z-index: 10;
         }
 
-        .page   {
-            display: grid;
-            grid-template-areas:    " header header  header-image "
-                                " . content .";
-            grid-template-columns: var( --gutter-width) auto var( --gutter-width);
+        @media all and (min-width: 800px) {
+            .header-image {
+                position: relative;
+                left: -278px;
+            }
 
+            .page {
+                display: grid;
+                grid-template-areas:
+                                " header header  header-image "
+                                " . content .";
+                grid-template-columns: var( --gutter-width) auto var( --gutter-width);
+            }
         }
 
+        @media all  and (max-width: 800px ) {
+
+            .content {
+                margin-left: 1em;
+                margin-right: 1em;
+            }
+
+            .page {
+                display: grid;
+                grid-template-areas:
+                                "   header   "
+                                "  header-image  "
+                                "   content ";
+            }
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -139,12 +165,18 @@
 <script type="text/plain" data-cookie-consent="tracking">
     window.trackingPermitted  = true;
     renderVideos();
+
+
+
+
+
 </script>
- <div class="page">
-     <div class="header"></div>
-     <div class="header-image"></div>
-     <div class="content"></div></div>
- <script id="template" type="x-tmpl-mustache">
+<div class="page">
+    <div class="header"></div>
+    <div class="header-image"></div>
+    <div class="content"></div>
+</div>
+<script id="template" type="x-tmpl-mustache">
 {{#videos}}
 <div class="video">
     <h2>
@@ -161,6 +193,11 @@
 
 </div>
 {{/videos}}
+
+
+
+
+
 </script>
 
 </body>
