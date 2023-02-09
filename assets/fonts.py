@@ -2,6 +2,11 @@
 import os
 import re
 
+'''
+i want to remain gdpr compliant so i am making sure that all the fonts are loaded locally.
+this script parses the css given by google fonts's @import suggestion, downloads the font in the url for the src, and then replaces the url with the local path.
+this way, at no point will we make a call to a google server, giving them an IP address
+'''
 if __name__ == '__main__':
     results = '''
 /* latin-ext */
