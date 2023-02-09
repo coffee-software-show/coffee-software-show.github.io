@@ -7,7 +7,7 @@
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Coffee + Software with Josh Long ">
     <meta name="author" content="Josh Long">
     <meta property="og:title" content="A Basic HTML5 Template">
@@ -22,16 +22,13 @@
             --gutter-width: 100px;
             font-family: 'Abel', sans-serif;
             font-size: larger;
-
         }
-
 
         .logo-image {
             background-image: url("images/logo.png");
             background-repeat: no-repeat;
             grid-area: header;
             height: 100px;
-
         }
 
         .video {
@@ -111,7 +108,7 @@
             }
 
             .content {
-
+                align-content: center;
             }
 
             .logo-image {
@@ -123,7 +120,13 @@
                 background-image: url("images/exported-yt-og.png");
             }
 
+            .video {
+
+            }
+
+
             .page {
+
                 grid-template-areas:
                                 "   header   "
                                 "  header-image  "
@@ -141,8 +144,6 @@
         }
     </style>
     <script src="https://unpkg.com/mustache@latest"></script>
-
-
     <script>
         window.videos = {api: 'https://api.coffeesoftware.com'}
         window.trackingPermitted = window.trackingPermitted || false
@@ -163,7 +164,9 @@
                 .then((data) => {
                     videos = data;
                     for (let i = 0; i < videos.length; i++) {
-                        videos[i].publishedAt = new Date(Date.parse(videos[i].publishedAt));
+                        const d = new Date(Date.parse(videos[i].publishedAt));
+                        videos[i].publishedAt = d
+                        videos[i].publishedAtString = d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate()
                     }
                     renderVideos();
                 });
@@ -199,6 +202,8 @@
 <script type="text/plain" data-cookie-consent="tracking">
     window.trackingPermitted  = true;
     renderVideos();
+
+
 </script>
 <div class="page">
     <div class="logo-image"></div>
@@ -212,7 +217,7 @@
         {{title}}
     </h2>
     <div class = "details">
-        <div class = "published">{{ publishedAt }}</div>
+        <div class = "published">{{ publishedAtString }}</div>
         <div class = "description">{{ description }}</div>
     </div>
     {{#trackingPermitted }}
@@ -226,6 +231,8 @@
 
 </div>
 {{/videos}}
+
+
 </script>
 
 </body>
