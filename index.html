@@ -14,17 +14,6 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://coffeesoftware.com">
     <meta property="og:description" content="You've got plenty of things you could be watching. Why this?">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-
-    <style>
-        .video {
-            padding: 1em;
-            border-top: 1px solid black;
-            margin-top: 2em;
-        }
-    </style>
 </head>
 
 <body>
@@ -58,12 +47,12 @@
 <script>
     window.videos = {api: 'https://api.coffeesoftware.com'}
     window.trackingPermitted = window.trackingPermitted || false
-    console.log('tracking=false')
     let videos = [];
 
     function renderVideos() {
+        console.log('need to render', videos.length, 'videos:', videos)
         const template = document.getElementById('template').innerHTML;
-        document.getElementById('target').innerHTML = Mustache.render(template, {
+        document.getElementsByClassName('content')[0].innerHTML = Mustache.render(template, {
             trackingPermitted: window.trackingPermitted,
             videos: videos
         });
@@ -73,22 +62,18 @@
         window.fetch(window.videos.api + '/videos')
             .then((response) => response.json())
             .then((data) => {
-                videos = data ;
+                videos = data;
                 for (let i = 0; i < videos.length; i++) {
-                    videos [i].publishedAt = new Date(Date.parse(videos [i].publishedAt));
+                    videos[i].publishedAt = new Date(Date.parse(videos[i].publishedAt));
                 }
-                renderVideos() ;
+                renderVideos();
             });
     });
 
 </script>
-
-
 <script type="text/plain" data-cookie-consent="tracking">
-    window.trackingPermitted  = true
-    console.log('tracking permitted = true' )
-    renderVideos()
-
+    window.trackingPermitted  = true;
+    renderVideos();
 
 
 
@@ -115,10 +100,83 @@
 
 
 
-</script>
 
-<h1> Coffee + Software with Josh Long
-</h1>
-<div id="target"></div>
+
+
+
+
+
+</script>
+<div class="header">
+</div>
+<div class="header-image"></div>
+<div class="content"></div>
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+
+    :root {
+        --gutter-width: 100px;
+        font-family: 'Abel', sans-serif;
+        font-size: larger;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .header {
+        background-image: url("images/logo.png");
+        background-repeat: no-repeat;
+        grid-area: header;
+        background-size: 20%;
+        margin-left: 1em;
+        margin-top: 1em;
+    }
+
+    .video {
+        margin-bottom: 2em;
+    }
+
+    .video .details .published {
+        font-size: smaller;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 1em;
+    }
+
+    .video .details .description {
+        margin-bottom: 1em;
+    }
+
+    .header-image {
+        grid-area: header-image;
+        height: 338px;
+        width: 378px;
+        position: relative;
+        left: -278px;
+        background-image: url("images/exported-yt.png");
+        background-repeat: no-repeat;
+        z-index: -1;
+    }
+
+    .content {
+        top: -200px;
+        position: relative;
+        grid-area: content;
+        z-index: 10;
+    }
+
+    body {
+        display: grid;
+        grid-template-areas:    " header header  header-image "
+                                " . content .";
+        grid-template-columns: var( --gutter-width) auto var( --gutter-width);
+
+    }
+
+</style>
 </body>
 </html>
