@@ -28,13 +28,12 @@
         }
 
 
-        .header {
+        .logo-image {
             background-image: url("images/logo.png");
             background-repeat: no-repeat;
             grid-area: header;
             height: 100px;
-            margin-left: 1em;
-            margin-top: 1em;
+
         }
 
         .video {
@@ -52,10 +51,8 @@
             margin-bottom: 1em;
         }
 
-        .header-image {
+        .cloud-image {
             height: 338px;
-            width: 378px;
-
             grid-area: header-image;
             background-image: url("images/exported-yt.png");
             background-repeat: no-repeat;
@@ -68,14 +65,25 @@
             z-index: 10;
         }
 
+        .page {
+            display: grid;
+        }
+
         @media all and (min-width: 800px) {
-            .header-image {
+            .cloud-image {
                 position: relative;
                 left: -278px;
+                width: 378px ;
             }
 
+            .logo-image {
+                margin-left: 1em;
+            }
+            .content {
+                position: relative;
+                top: -200px;
+            }
             .page {
-                display: grid;
                 grid-template-areas:
                                 " header header  header-image "
                                 " . content .";
@@ -90,8 +98,16 @@
                 margin-right: 1em;
             }
 
+            .logo-image {
+                background-position: center;
+            }
+
+            .cloud-image {
+                background-position: center;
+                background-image: url("images/exported-yt-og.png");
+            }
+
             .page {
-                display: grid;
                 grid-template-areas:
                                 "   header   "
                                 "  header-image  "
@@ -99,6 +115,9 @@
             }
         }
 
+        .page {
+            margin-top: 1em ;
+        }
         body {
             padding: 0;
             margin: 0;
@@ -170,10 +189,11 @@
 
 
 
+
 </script>
 <div class="page">
-    <div class="header"></div>
-    <div class="header-image"></div>
+    <div class="logo-image"></div>
+    <div class="cloud-image"></div>
     <div class="content"></div>
 </div>
 <script id="template" type="x-tmpl-mustache">
@@ -193,6 +213,7 @@
 
 </div>
 {{/videos}}
+
 
 
 
