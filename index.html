@@ -62,7 +62,6 @@
     let videos = [];
 
     function renderVideos() {
-        console.log('rendering videos', videos)
         const template = document.getElementById('template').innerHTML;
         document.getElementById('target').innerHTML = Mustache.render(template, {
             trackingPermitted: window.trackingPermitted,
@@ -71,16 +70,14 @@
     }
 
     window.addEventListener('load', function () {
-        console.log('fetching videos!')
         window.fetch(window.videos.api + '/videos')
             .then((response) => response.json())
             .then((data) => {
-                videos = data
-                // normalize the dates from utc strings to javascript date objects
+                videos = data ;
                 for (let i = 0; i < videos.length; i++) {
-                    videos [i].publishedAt = new Date(Date.parse(videos [i].publishedAt))
+                    videos [i].publishedAt = new Date(Date.parse(videos [i].publishedAt));
                 }
-                renderVideos()
+                renderVideos() ;
             });
     });
 
