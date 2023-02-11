@@ -17,10 +17,11 @@
     <style>
 
         @import url('fonts.css');
+
         :root {
             --gutter-width: 100px;
             font-size: larger;
-            font-family: 'Abel' , sans-serif;
+            font-family: 'Abel', sans-serif;
         }
 
         body {
@@ -29,17 +30,19 @@
             margin: 0;
             padding: 0;
         }
+
         .title {
             font-weight: bold;
             font-family: 'Space Mono', sans-serif;
             font-size: larger;
         }
+
         .logo-image {
             background-image: url("images/logo.png");
             background-repeat: no-repeat;
             grid-area: header;
             height: 100px;
-            margin-top: 1em ;
+            margin-top: 1em;
 
         }
 
@@ -50,8 +53,8 @@
         .video .details .published {
             font-size: smaller;
             text-transform: uppercase;
-            font-weight: bolder ;
-            margin-top : 1em;
+            font-weight: bolder;
+            margin-top: 1em;
             margin-bottom: 1em;
         }
 
@@ -74,6 +77,48 @@
 
         .page {
             display: grid;
+        }
+
+        .menu {
+            grid-area: menu;
+            background-color: black;
+            color: white;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+            font-size: smaller;
+            font-weight: bolder;
+        }
+
+        .menu .links {
+            margin: auto;
+            /*border: 1px solid white;*/
+            width: max-content;
+        }
+
+        .menu .links a:hover {
+            color: lawngreen
+        }
+
+        .menu .links a {
+            margin-right: .5em;
+            margin-left: .5em;
+            color: white;
+            text-decoration: none;
+            padding-left: 25px;
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
+        }
+
+        .menu .links a.twitter {
+            background-image: url("images/twitter-logo.png");
+        }
+
+        .menu .links a.youtube {
+            background-image: url("images/youtube-logo.png");
+
+
         }
 
         .video-link {
@@ -109,8 +154,9 @@
 
             .page {
                 grid-template-areas:
-                                " header header  header-image "
-                                " . content .";
+                            "       menu menu menu "
+                            " header header  header-image "
+                            " . content .";
                 grid-template-columns: var( --gutter-width) auto var( --gutter-width);
             }
         }
@@ -135,8 +181,9 @@
             }
 
             .page {
-                grid-template-columns:   5%  90%  5% ;
+                grid-template-columns:   5%  90%  5%;
                 grid-template-areas:
+                                " menu menu menu  "
                                 "  . header .   "
                                 " .  header-image  .  "
                                 "  . content . ";
@@ -199,11 +246,11 @@
 </script>
 
 <noscript>
-    Free cookie consent management tool by <a href="https://www.termsfeed.com/" rel="nofollow noopener">TermsFeed
+    Free cookie consent management
+    tool by <a href="https://www.termsfeed.com/" rel="nofollow noopener">TermsFeed
     Privacy Suite Generator</a>
 </noscript>
 <!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->
-
 <script type="text/plain" data-cookie-consent="tracking">
     window.trackingPermitted  = true;
     renderVideos();
@@ -211,6 +258,12 @@
 
 </script>
 <div class="page">
+    <div class="menu">
+        <div class="links">
+            <a class="youtube" href="https://youtube.com/@coffeesoftware">@coffeesoftware</a>
+            <a class="twitter" href="https://twitter.com/starbuxman">@starbuxman</a>
+        </div>
+    </div>
     <div class="logo-image"></div>
     <div class="cloud-image"></div>
     <div class="content"></div>
@@ -236,6 +289,18 @@
 
 </div>
 {{/videos}}
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 </body>
