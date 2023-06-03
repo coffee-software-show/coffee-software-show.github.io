@@ -197,9 +197,43 @@
     </style>
     <script src="https://unpkg.com/mustache@latest"></script>
     <script>
-        window.videos = {api: 'https://api.coffeesoftware.com'}
-        window.trackingPermitted = window.trackingPermitted || false
-        let videos = [];
+        function loadVideosFromGraphql() {
+            const multilineGraphQlQuery = `
+                {
+                  coffeesoftwareVideos {
+                    id
+                    title
+                    published
+                    likes
+                    thumbnail
+                    description
+                  }
+                }
+            `;
+            fetch("https://api.joshlong.com/graphql", {
+                "headers": {
+                    "accept": "application/json, multipart/mixed",
+                    "accept-language": "en-US,en;q=0.9",
+                    "content-type": "application/json"
+                },
+                "body": JSON.stringify({"query": multilineGraphQlQuery}),
+                "method": "POST"
+            })
+            .then(r => r.json())
+            .then((data) => {
+                videos = data['data']['coffeesoftwareVideos']
+                for (let i = 0; i < videos.length; i++) {
+                    videos [i].videoId = videos [i].id
+                    const d = new Date(Date.parse(videos[i].published));
+                    videos[i].publishedAt = d
+                    videos[i].publishedAtString = d.getFullYear() + '/' +(1+ d.getMonth()) + '/' + d.getDate()
+                }
+                renderVideos()
+            })
+
+        }
+
+
 
         function renderVideos() {
             console.log('need to render', videos.length, 'videos:', videos)
@@ -210,19 +244,10 @@
             });
         }
 
-        window.addEventListener('load', function () {
-            window.fetch(window.videos.api + '/videos')
-                .then((response) => response.json())
-                .then((data) => {
-                    videos = data;
-                    for (let i = 0; i < videos.length; i++) {
-                        const d = new Date(Date.parse(videos[i].publishedAt));
-                        videos[i].publishedAt = d
-                        videos[i].publishedAtString = d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate()
-                    }
-                    renderVideos();
-                });
-        });
+        window.videos = {api: 'https://api.coffeesoftware.com'}
+        window.trackingPermitted = window.trackingPermitted || false
+        let videos = [];
+        window.addEventListener('load', loadVideosFromGraphql);
 
     </script>
 </head>
@@ -254,8 +279,6 @@
 <script type="text/plain" data-cookie-consent="tracking">
     window.trackingPermitted  = true;
     renderVideos();
-
-
 </script>
 <div class="page">
     <div class="menu">
@@ -289,17 +312,6 @@
 
 </div>
 {{/videos}}
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 
